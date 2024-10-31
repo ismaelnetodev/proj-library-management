@@ -2,5 +2,5 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 # Create your views here.
-def cadastrar(request):
-    return HttpResponse("Teste")
+def home(request):
+    return HttpResponse("Tá logado pae")
