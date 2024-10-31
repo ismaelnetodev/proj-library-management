@@ -12,28 +12,33 @@
 
 
 {% block 'conteudo' %} 
+<body>
 
-<div class="container mt-md-5 mx-auto">
-            {% if status == '1' %}
-              <div class="alert alert-danger" role="alert">E-mail ou senha incorretos. </div>
-            {% endif %}
-    <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md">
-            <h1>Login</h1>
-            <hr>
+  <div class="container mt-md-5 mx-auto">
+              {% if status == '1' %}
+                <div class="alert alert-danger" role="alert">E-mail ou senha incorretos. </div>
+              {% endif %}
+              {% if status == '2' %}
+                <div class="alert alert-warning" role="alert">Faça seu login para acessar o sistema</div>
+              {% endif %}
+      <div class="row">
+          <div class="col-md-3"></div>
+          <div class="col-md">
+              <h1>Login</h1>
+              <hr>
 
-            <form method="POST" action="{% url 'valida_login' %}"> {% csrf_token %}
-                <label for="">E-mail</label>
-                <input name="email" class="form-control" type="email" name="" id="" placeholder="Seu e-mail..."><br>
-                <label for="">Senha</label>
-                <input name="senha" class="form-control" type="password" placeholder="Sua senha..."><br>
-                <input class="btn btn-success btn-lg" type="submit" value="Login">
-                <p>Não possui conta? <a href="{% url 'cadastro' %}">Faça um cadastro.</a></p>
-            </form>
-        </div>
-        <div class="col-md-3"></div>
-    </div>
-</div>
-
+              <form method="POST" action="{% url 'valida_login' %}"> {% csrf_token %}
+                  <label for="">E-mail</label>
+                  <input name="email" class="form-control" type="email" name="" id="" placeholder="Seu e-mail..."><br>
+                  <label for="">Senha</label>
+                  <input name="senha" class="form-control" type="password" placeholder="Sua senha..."><br>
+                  <input class="btn btn-success btn-lg" type="submit" value="Login">
+                  <p>Não possui conta? <a href="{% url 'cadastro' %}">Faça um cadastro.</a></p>
+              </form>
+          </div>
+          <div class="col-md-3"></div>
+      </div>
+  </div>
+</body>
+</html>
 {% endblock %}

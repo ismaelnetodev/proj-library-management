@@ -13,40 +13,42 @@
 
 {% block 'conteudo' %} 
 
+<body>
 
-<div class="container mt-md-5 mx-auto">
-            {% if status == '1' %}
-              <div class="alert alert-danger" role="alert">Nome e email não podem estar vazios. </div>
-            {% endif %}
-            {% if status == '2' %}
-              <div class="alert alert-danger" role="alert">Senha precisa ter pelo menos 8 caracteres. </div>
-            {% endif %}
-            {% if status == '3' %}
-              <div class="alert alert-danger" role="alert">Usuário já existe no sistema.</div>
-            {% endif %}
-            {% if status == '4' %}
-              <div class="alert alert-danger" role="alert">Erro interno no sistema.</div>
-            {% endif %}
-    <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md">
-            <h1>Cadastre-se</h1>
-            <hr>
+  <div class="container mt-md-5 mx-auto">
+              {% if status == '1' %}
+                <div class="alert alert-danger" role="alert">Nome e email não podem estar vazios. </div>
+              {% endif %}
+              {% if status == '2' %}
+                <div class="alert alert-danger" role="alert">Senha precisa ter pelo menos 8 caracteres. </div>
+              {% endif %}
+              {% if status == '3' %}
+                <div class="alert alert-danger" role="alert">Usuário já existe no sistema.</div>
+              {% endif %}
+              {% if status == '4' %}
+                <div class="alert alert-danger" role="alert">Erro interno no sistema.</div>
+              {% endif %}
+      <div class="row">
+          <div class="col-md-3"></div>
+          <div class="col-md">
+              <h1>Cadastre-se</h1>
+              <hr>
 
-            <form method="POST" action="{% url 'valida_cadastro' %}"> {% csrf_token %}
-                <label for="">Nome</label>
-                <input name="nome" class="form-control" type="text" placeholder="Seu nome..."><br>
-                <label for="">E-mail</label>
-                <input name="email" class="form-control" type="email" name="" id="" placeholder="Seu e-mail..."><br>
-                <label for="">Senha</label>
-                <input name="senha" class="form-control" type="password" placeholder="Sua senha..."><br>
-                <input class="btn btn-success btn-lg" type="submit" value="Cadastrar">
-                <p>Já possui conta? <a href="{% url 'login' %}">Faça login.</a></p>
-            </form>
-            
-        </div>
-        <div class="col-md-3"></div>
-    </div>
-</div>
-
+              <form method="POST" action="{% url 'valida_cadastro' %}"> {% csrf_token %}
+                  <label for="">Nome</label>
+                  <input name="nome" class="form-control" type="text" placeholder="Seu nome..."><br>
+                  <label for="">E-mail</label>
+                  <input name="email" class="form-control" type="email" name="" id="" placeholder="Seu e-mail..."><br>
+                  <label for="">Senha</label>
+                  <input name="senha" class="form-control" type="password" placeholder="Sua senha..."><br>
+                  <input class="btn btn-success btn-lg" type="submit" value="Cadastrar">
+                  <p>Já possui conta? <a href="{% url 'login' %}">Faça login.</a></p>
+              </form>
+              
+          </div>
+          <div class="col-md-3"></div>
+      </div>
+  </div>
+</body>
+</html>
 {% endblock %}

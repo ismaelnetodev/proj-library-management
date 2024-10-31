@@ -6,10 +6,14 @@ from hashlib import sha256
 from livros import urls
 # Create your views here.
 def login(request):
+    if request.session.get('usuario'):
+        return redirect('/livros/home/')
     status = request.GET.get("status")
     return render(request, "login.html", {'status': status})
 
 def cadastro(request):
+    if request.session.get('usuario'):
+        return redirect('/livros/home/')
     status = request.GET.get('status')
     return render(request, "cadastro.html", {'status': status})
 
@@ -50,3 +54,7 @@ def valida_login(request):
     elif len(usuarios) > 0:
         request.session['usuario'] = usuarios[0].id
         return redirect("/livros/home/")
+
+def sair(request):
+    request.session.flush()
+    return redirect('/auth/login')
