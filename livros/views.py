@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from usuarios.models import Usuarios
 from .models import Livros, Categoria, Emprestimos
+from .forms import CadatroLivros
 
 # Create your views here.
 def home(request):
@@ -9,7 +10,8 @@ def home(request):
         usuario = Usuarios.objects.get(id = request.session['usuario']).nome
         livros = Livros.objects.all()
         categorias = Categoria.objects.all()
-        return render(request, 'home.html', {'livros': livros, 'usuario_logado':request.session.get('usuario'), "categorias": categorias})
+        form = CadatroLivros()
+        return render(request, 'home.html', {'livros': livros, 'usuario_logado':request.session.get('usuario'), "categorias": categorias, "form": form})
     else:
         return redirect('/auth/login/?status=2')
     
@@ -31,9 +33,17 @@ def historico(request):
         usuario = Usuarios.objects.get(id=usuario_id)
         emprestimos = Emprestimos.objects.filter(nome_emprestado_id=usuario_id)
         categorias = Categoria.objects.all()
-        return render(request, 'historico.html', {'emprestimos': emprestimos, 'usuario': usuario, "categorias": categorias, 'usuario_logado':request.session.get('usuario')})
+        form = CadatroLivros()
+        return render(request, 'historico.html', {'emprestimos': emprestimos, 'usuario': usuario, "categorias": categorias, 'usuario_logado':request.session.get('usuario'), 'form':form})
     else:
         return redirect('/auth/login/?status=2')
     
 def valida_cadastro(request):
-    pass
+    if request.method == "POST":
+        form = CadatroLivros(request.POST)
+        
+        if form.is_valid():
+            form.save()
+            return HttpResponse("livro cadastrado.")
+        else:
+            return HttpResponse("INVALIDO")

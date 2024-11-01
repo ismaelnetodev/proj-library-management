@@ -5,6 +5,7 @@ class Usuarios(models.Model):
     nome = models.CharField(max_length=30)
     email = models.EmailField()
     senha = models.CharField(max_length=64)
+    endereco = models.CharField(max_length=50)
     
     class Meta:
         verbose_name = 'Usuario'

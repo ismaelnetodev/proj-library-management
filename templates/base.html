@@ -52,23 +52,13 @@
               </button>
             </div>
             <div class="modal-body">
-              <form method="POST" action="{% url 'valida_cadastro' %}"> {% csrf_token %}
-                <label for="">Título</label>
-                <input name="titutlo" class="form-control" type="text" name="" id="" placeholder="Título do Livro"><br>
-                <label for="">Autor</label>
-                <input name="autor" class="form-control" type="text" placeholder="Autor do livro"><br>
-                <label for="disponiveis">Disponiveis:</label>
-                <input name="disponiveis" class="form-control" type="number" placeholder="Livros disponíveis"><br>
-                <label for="categoria">Categoria:</label>
-                <select class="form-control" name="categoria">
-                    {% for i in categorias %}
-                        <option value="{{ i.id }}" {% if info_livro.categoria.id == i.id %}selected{% endif %}>
-                            {{ i.nome }}
-                        </option>
-                    {% endfor %}
-                </select>
-                <input class="btn btn-success btn-lg" type="submit" value="Login">
-            </form>
+             <form action="/livros/valida_cadastro/" method="POST">
+              {% csrf_token %}
+              <table>
+                {{form.as_table}}
+              </table>
+              <button type="submit" class="btn btn-success">Cadastrar</button>
+             </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

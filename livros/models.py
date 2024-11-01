@@ -15,7 +15,6 @@ class Livros(models.Model):
     autor = models.CharField(max_length=30)
     categoria = models.ForeignKey(Categoria, on_delete=models.DO_NOTHING)
     disponiveis = models.IntegerField()
-    emprestado = models.BooleanField(default=False)
     usuario = models.ForeignKey(Usuarios, on_delete=models.DO_NOTHING)
     
     class Meta:

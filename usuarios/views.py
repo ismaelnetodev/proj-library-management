@@ -18,9 +18,10 @@ def cadastro(request):
     return render(request, "cadastro.html", {'status': status})
 
 def valida_cadastro(request):
-    nome = request.POST.get('nome')
-    senha = request.POST.get("senha")
-    email = request.POST.get("email")
+    nome = request.POST.get('nome', '').strip()
+    senha = request.POST.get("senha", '').strip()  
+    email = request.POST.get("email", '').strip() 
+    endereco = request.POST.get("endereco", '').strip() 
     
     usuario = Usuarios.objects.filter(email=email)
     
@@ -35,7 +36,7 @@ def valida_cadastro(request):
     
     try:
         senha = sha256(senha.encode()).hexdigest()
-        usuario = Usuarios(nome = nome, senha = senha, email = email)
+        usuario = Usuarios(nome = nome, senha = senha, email = email, endereco=endereco)
         usuario.save()
         
         return redirect('/auth/login/')
