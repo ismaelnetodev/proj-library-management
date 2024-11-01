@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
+
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+}
+
+.container {
+    max-width: 100%;
+    padding: 20px;
+    margin-top: 2.5rem;
+}
+
+.livro-imagem {
+    max-width: 100%;
+    max-height: 415px;
+    width: auto;
+    height: auto;
+}
+
+.card {
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+    border: 1px solid #333;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(37, 37, 37, 0.2);
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.02);
+}
+
+.card-title {
+    color: #d8d8d8;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.list-group-item {
+    background-color: #333;
+    color: #f0f0f0;
+    border-color: #444;
+}
+
+.card-img-top {
+    border-radius: 10px 10px 0 0;
+}
+
+.btn-info {
+    background-color: #14a2e4;
+    border-color: #14a2e4;
+    color: #000;
+}
+
+.btn-info:hover {
+    background-color: #0370b3;
+    border-color: #0583d1;
+    /* mudei a cor do hover no info */
+}
+
+.btn-success {
+    background-color: rgb(16, 221, 177);
+    border-color: rgb(16, 221, 177);
+    color: #000;
+}
+
+.btn-success:hover {
+    background-color: rgb(1, 165, 130);
+    border-color: rgb(1, 165, 130);
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: 100%;
+    }
+
+    .btn {
+        font-size: 0.9em;
+        padding: 10px;
+    }
+}

@@ -8,7 +8,8 @@ def home(request):
     if request.session.get('usuario'):
         usuario = Usuarios.objects.get(id = request.session['usuario']).nome
         livros = Livros.objects.all()
-        return render(request, 'home.html', {'livros': livros})
+        categorias = Categoria.objects.all()
+        return render(request, 'home.html', {'livros': livros, 'usuario_logado':request.session.get('usuario'), "categorias": categorias})
     else:
         return redirect('/auth/login/?status=2')
     
@@ -29,6 +30,10 @@ def historico(request):
         usuario_id = request.session['usuario']
         usuario = Usuarios.objects.get(id=usuario_id)
         emprestimos = Emprestimos.objects.filter(nome_emprestado_id=usuario_id)
-        return render(request, 'historico.html', {'emprestimos': emprestimos, 'usuario': usuario})
+        categorias = Categoria.objects.all()
+        return render(request, 'historico.html', {'emprestimos': emprestimos, 'usuario': usuario, "categorias": categorias, 'usuario_logado':request.session.get('usuario')})
     else:
         return redirect('/auth/login/?status=2')
+    
+def valida_cadastro(request):
+    pass

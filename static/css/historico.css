@@ -1,0 +1,8 @@
+.rounded-table {
+    border-radius: 8px; 
+    overflow: hidden; 
+}
+
+.rounded-table th, .rounded-table td {
+    border: none;
+}
