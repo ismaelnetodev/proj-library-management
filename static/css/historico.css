@@ -1,8 +1,68 @@
-.rounded-table {
-    border-radius: 8px; 
-    overflow: hidden; 
+/* Define a largura da tela para dispositivos móveis */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 0;
 }
 
-.rounded-table th, .rounded-table td {
-    border: none;
+/* Container centralizado e ajustável */
+.container {
+    padding: 10px;
+    margin: 0 auto;
+}
+
+/* Título responsivo com espaçamento flexível */
+.title-container {
+    font-size: 1.5rem;
+    margin-left: 2rem;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .title-container {
+        font-size: 2rem;
+        margin-left: 4rem;
+        text-align: left;
+    }
+}
+
+/* Tabela responsiva com bordas arredondadas */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.rounded-table {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table {
+    width: 100%;
+}
+
+.tittle-table {
+    background-color: rgb(192, 31, 31);
+}
+
+/* Altura máxima e scroll para o corpo da tabela */
+.elements {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+@media (max-width: 767px) {
+    .title-container {
+        font-size: 1.2rem;
+        margin-left: 1rem;
+    }
+    
+    .table {
+        font-size: 0.9rem;
+    }
+    
+    .tittle-table th, .elements td {
+        padding: 0.5rem;
+    }
 }

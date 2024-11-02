@@ -11,6 +11,7 @@ def home(request):
         livros = Livros.objects.all()
         categorias = Categoria.objects.all()
         form = CadatroLivros()
+        form.fields['usuario'].initial = request.session['usuario']
         return render(request, 'home.html', {'livros': livros, 'usuario_logado':request.session.get('usuario'), "categorias": categorias, "form": form})
     else:
         return redirect('/auth/login/?status=2')
@@ -20,6 +21,8 @@ def info_livro(request, id):
         livro = Livros.objects.get(id = id)
         categorias = Categoria.objects.all()
         is_owner = request.session.get('usuario') == livro.usuario.id
+        form = CadatroLivros()
+        form.fields['usuario'].initial = request.session['usuario']
         return render(request, 'info_livro.html', {"info_livro": livro, "is_owner": is_owner, "categorias": categorias})
     else:
         return redirect('/auth/login/?status=2')
@@ -34,6 +37,7 @@ def historico(request):
         emprestimos = Emprestimos.objects.filter(nome_emprestado_id=usuario_id)
         categorias = Categoria.objects.all()
         form = CadatroLivros()
+        form.fields['usuario'].initial = request.session['usuario']
         return render(request, 'historico.html', {'emprestimos': emprestimos, 'usuario': usuario, "categorias": categorias, 'usuario_logado':request.session.get('usuario'), 'form':form})
     else:
         return redirect('/auth/login/?status=2')
@@ -41,9 +45,11 @@ def historico(request):
 def valida_cadastro(request):
     if request.method == "POST":
         form = CadatroLivros(request.POST)
-        
         if form.is_valid():
             form.save()
-            return HttpResponse("livro cadastrado.")
+            return redirect('/livros/home/?status=3')
         else:
-            return HttpResponse("INVALIDO")
+            return HttpResponse("INVALIDO: " + str(form.errors))  # Mostre os erros do formulário
+    else:
+        form = CadatroLivros()
+        form.fields['usuario'].initial = request.session.get('usuario')

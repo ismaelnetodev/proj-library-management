@@ -35,6 +35,11 @@
           </ul>
       </div>
   </nav>
+  {% if status == '3' %}
+  <div class="alert alert-success" role="alert">
+    Livro cadastro com sucesso.
+  </div>
+  {% endif %}
  
 
       {% block 'conteudo' %} {% endblock %}
@@ -43,30 +48,71 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
       {% if usuario_logado %}
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Cadastrar livro</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+        <div class="modal-dialog dark-modal" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cadastrar livro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/livros/valida_cadastro/" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ form.titulo.label_tag }}
+                            {{ form.titulo }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.autor.label_tag }}
+                            {{ form.autor }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.categoria.label_tag }}
+                            {{ form.categoria }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.disponiveis.label_tag }}
+                            {{ form.disponiveis }}
+                        </div>
+                        {{ form.usuario }} 
+                        <button type="submit" class="btn btn-success">Cadastrar</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                </div>
             </div>
-            <div class="modal-body">
-             <form action="/livros/valida_cadastro/" method="POST">
-              {% csrf_token %}
-              <table>
-                {{form.as_table}}
-              </table>
-              <button type="submit" class="btn btn-success">Cadastrar</button>
-             </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-  
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
     {% endif %}
+
+  
+    <script>
+      $(document).ready(function () {
+          $('#exampleModal').on('show.bs.modal', function () {
+              // Aplica a cor de fundo escura no modal
+              $(this).find('.modal-content').css({
+                  'background-color': '#1e1e1e',
+                  'color': '#ffffff'
+              });
+  
+              // Aplica o estilo preto nas labels
+              $(this).find('.form-group label').css('color', 'white');
+  
+              // Aplica o estilo no fundo dos inputs e na cor do texto
+              $(this).find('.form-control').css({
+                  'background-color': '#333',
+                  'color': '#ffffff',
+                  'border': '1px solid #555'
+              });
+  
+              // Aplica o estilo ao placeholder dos inputs
+              $(this).find('.form-control').each(function() {
+                  $(this).attr('placeholder-color', '#bfbfbf');
+              });
+          });
+      });
+  </script>
   </body>
 </html>
