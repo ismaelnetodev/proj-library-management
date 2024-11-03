@@ -1,5 +1,5 @@
 from django import forms
-from .models import Livros
+from .models import Emprestimos, Livros
 
 class CadatroLivros(forms.ModelForm):
     class Meta:
@@ -10,9 +10,12 @@ class CadatroLivros(forms.ModelForm):
             'autor': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite o autor'}),
             'categoria': forms.Select(attrs={'class': 'form-control'}),
             'disponiveis': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantidade disponível'}),
+            'img_link': forms.TextInput(attrs={'class': 'form-control'}),
             'usuario': forms.HiddenInput()
         }
         
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
             self.fields['usuario'].widget = forms.HiddenInput()
+            
+            

@@ -5,5 +5,12 @@ register = template.Library()
 
 @register.filter()
 def mostra_duracao(data_devolucao):
-    dias_restantes = (data_devolucao - date.today()).days
-    return dias_restantes if dias_restantes > 0 else 0
+    if data_devolucao is not None:
+        dias_restantes = (data_devolucao - date.today()).days
+        if dias_restantes < 0:
+            return "Vencido"
+        elif dias_restantes == 0:
+            return "Vence hoje"
+        else:
+            return f"{dias_restantes} Dias"
+    return "Data não definida"

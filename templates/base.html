@@ -7,6 +7,7 @@
     <title>{% block 'titulo' %} {% endblock %}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/css/base.css">
+
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -26,26 +27,21 @@
                   <a class="nav-link" data-toggle="modal" data-target="#exampleModal">Adicionar Livro</a>
               </li>
               <li class="nav-item dropdown {% if 'usuario' in request.path %}active{% endif %}">
-                  <a class="nav-link dropdown-toggle" href="#" id="dropdown08" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuário</a>
+                  <a class="nav-link dropdown-toggle" href="" id="dropdown08" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuário</a>
                   <div class="dropdown-menu" aria-labelledby="dropdown08">
                       <a class="dropdown-item" href="#">Perfil</a>
-                        <a class="dropdown-item bg-danger" href="{% url 'sair' %}">Sair</a>
+                        <a class="dropdown-item" href="{% url 'sair' %}">Sair</a>
                   </div>
               </li>
           </ul>
       </div>
   </nav>
-  {% if status == '3' %}
-  <div class="alert alert-success" role="alert">
-    Livro cadastro com sucesso.
-  </div>
-  {% endif %}
- 
 
       {% block 'conteudo' %} {% endblock %}
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+   
       {% if usuario_logado %}
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog dark-modal" role="document">
@@ -60,7 +56,7 @@
                     <form action="/livros/valida_cadastro/" method="POST">
                         {% csrf_token %}
                         <div class="form-group">
-                            {{ form.titulo.label_tag }}
+                            <label class="text-bg-light" style="color: white !important;">{{ form.titulo.label_tag }}</label>
                             {{ form.titulo }}
                         </div>
                         <div class="form-group">
@@ -69,11 +65,20 @@
                         </div>
                         <div class="form-group">
                             {{ form.categoria.label_tag }}
-                            {{ form.categoria }}
+                            <div class="input-group">
+                                {{ form.categoria }}
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalAddCategoria">Adicionar Categoria</button>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             {{ form.disponiveis.label_tag }}
                             {{ form.disponiveis }}
+                        </div>
+                        <div class="form-group">
+                            <label for="">Link para a capa do livro: </label>
+                            {{ form.img_link }}
                         </div>
                         {{ form.usuario }} 
                         <button type="submit" class="btn btn-success">Cadastrar</button>
@@ -85,6 +90,64 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modalAddCategoria" tabindex="-1" role="dialog" aria-labelledby="modalAddCategoriaLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAddCategoriaLabel">Adicionar Nova Categoria</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addCategoriaForm" method="POST" action="{% url 'adicionar_categoria' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="novaCategoriaNome">Nome da Categoria</label>
+                            <input type="text" class="form-control" id="novaCategoriaNome" name="nova_categoria_nome" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Salvar Categoria</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="emprestimoModal" tabindex="-1" role="dialog" aria-labelledby="emprestimoModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #1e1e1e; border-radius: 15px; color: #e0e0e0;">
+                <div class="modal-header" style="border-bottom: 1px solid #555;">
+                    <h5 class="modal-title" id="emprestimoModalLabel">Alugar Livro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: #b0b0b0;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="nome_emprestado" style="color: #b0b0b0;">Nome:</label>
+                            <input class="form-control" name="nome_emprestado" type="text" disabled value="{{nome_usuario}}" style="background-color: #333; color: #f0f0f0; border: 1px solid #555;">
+                        </div>
+                        <div class="mb-3">
+                            <label for="livro_titulo" style="color: #b0b0b0;">Livro:</label>
+                            <input type="text" class="form-control" name="livro_titulo" disabled style="background-color: #333; color: #f0f0f0; border: 1px solid #555;">
+                        </div>
+                        <div class="mb-3">
+                            <label for="data_devolucao" style="color: #b0b0b0;">Dia de devolução:</label>
+                            <input type="date" name="data_devolucao" required class="form-control" style="background-color: #333; color: #f0f0f0; border: 1px solid #555;">
+                        </div>
+                        <input type="hidden" name="livro_id" value="{{ id }}">
+                        <div class="d-grid">
+                            <input type="submit" value="Alugar" class="btn btn-success" style="background-color: rgb(16, 221, 177); border-color: rgb(16, 221, 177); color: #000;">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     {% endif %}
 
   
@@ -113,6 +176,21 @@
               });
           });
       });
+
+      
+    $(document).ready(function () {
+      // Captura o evento de exibição do modal
+    $('#emprestimoModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Pega o botão que abriu o modal
+        var livroId = button.data('livro-id'); // Pega o ID do livro
+        var livroNome = button.data('livro-titulo'); // Pega o título do livro
+
+        var modal = $(this);
+        modal.find('.modal-body input[name="livro_titulo"]').val(livroNome);
+        modal.find('.modal-body input[name="livro_id"]').val(livroId); // Popula o campo oculto
+        modal.find('form').attr('action', `/livros/cadastrar_emprestimo/${livroId}`);
+    });
+  });
   </script>
   </body>
 </html>
