@@ -22,8 +22,8 @@ This is a Digital Library System project developed with Django and PostgreSQL, d
 First, clone the repository to your machine:
 
 ```bash
-git clone <repository-URL>
-cd repository-name
+git clone https://github.com/ismaelnetodev/proj-library-management.git
+cd proj-library-management
 ```
 
 ### 2. Installing Dependencies
@@ -34,13 +34,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 3. Setting Up the Database
-This project uses PostgreSQL as its database. Create a database in PostgreSQL with the desired name, for example:
-```sql
-CREATE DATABASE digital_library;
-```
-
-### 4. Configuring the .env File
+### 3. Configuring the .env File
 To keep your database connection information secure, use a .env file in the project root with environment variables. Create a .env file and add the following database configuration:
 ```plaintext
 # Database Configuration
@@ -52,7 +46,7 @@ DB_PORT=5432
 ```
 Important: Ensure the .env file is listed in .gitignore so it is not versioned.
 
-### 5. Applying Migrations
+### 4. Applying Migrations
 After setting up the database and .env file, run the migrations to create the required tables:
 ```bash
 python manage.py migrate
